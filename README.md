@@ -1,4 +1,4 @@
-# Terminal-on-FB-Messenger
+# Terminal on Facebook Messenger
 
 Allows user to take full control of the terminal of their computer through Facebook's messaging service.
 
