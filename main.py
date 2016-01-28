@@ -40,7 +40,7 @@ def init():
 
 	profile=driver.find_element_by_css_selector('._2dpe._1ayn').get_attribute('href').split('/')[3]
 	driver.get('https://www.facebook.com/messages/'+profile)
-	#driver.find_element_by_css_selector('_1s0').click()
+	driver.find_element_by_css_selector('._1s0').click()
 
 	while True :
 		waitForNextMessage()
