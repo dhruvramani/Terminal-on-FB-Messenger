@@ -2,6 +2,7 @@
 
 Allows user to take full control of the terminal of their computer through Facebook's messaging service.
 
+
 ![Photo](photo.PNG)
 
 ##Dependencies 
@@ -19,6 +20,8 @@ python3 ~/main.py
 ```
 ![Screenshot](Screenshot1.png)
 Enter your facebook username and password and wait till it sets up. To make sure that it has setup, your url should be ```'https://facebook.com/messages/*your own username*```.
+
+To send the commands, search for your own name on the messanger and send commands to it
 
 ##Future Improvements
 - Add support for ```cd```
