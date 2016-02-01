@@ -6,7 +6,6 @@ driver=webdriver.Firefox()
 
 def waitForNextMessage():
 	messageList=driver.find_elements_by_css_selector('.null')
-	print(messageList)
 	command=''
 	while True:
 		driver.implicitly_wait(10)
@@ -40,7 +39,8 @@ def init():
 
 	profile=driver.find_element_by_css_selector('._2dpe._1ayn').get_attribute('href').split('/')[3]
 	driver.get('https://www.facebook.com/messages/'+profile)
-	driver.find_element_by_css_selector('._1s0').click()
+	if not(driver.find_element_by_id('u_0_x').is_displayed()):
+		driver.find_element_by_css_selector('._1s0').click()
 
 	while True :
 		waitForNextMessage()
