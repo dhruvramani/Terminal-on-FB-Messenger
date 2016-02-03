@@ -1,7 +1,6 @@
 import os
 from selenium import webdriver
 
-
 driver=webdriver.Firefox()
 
 def waitForNextMessage():
@@ -19,13 +18,22 @@ def waitForNextMessage():
 def runCommand(command):
 	driver.implicitly_wait(10)
 	output=os.popen(command).read()
-	try :
-		if command.split(' ')[0] == 'cd':
-			os.chdir(command.split(' ')[1])
-	except:
-		output='Error'	
+	cmd=command.split(' ')
+	if(len(cmd)==2):
+		fpath=os.getcwd()+'/'+cmd[1]
+	if cmd[0] == 'cd':
+		if os.path.isdir(fpath):
+			os.chdir(fpath)
+			output=os.getcwd()
+		else : output='No such file or directory: '+fpath
+	if cmd[0] == 'send':
+		if os.path.isfile(fpath):
+			driver.find_element_by_id('js_1').send_keys(fpath)
+			output=fpath
+		else:
+			output='File not found : '+fpath
 	driver.find_element_by_css_selector('.uiTextareaNoResize.uiTextareaAutogrow._1rv').send_keys(output)
-	driver.find_element_by_id('u_0_x').click()
+	driver.find_element_by_id('u_0_y').click()
 
 def init():
 	email=input("Email : ")
@@ -39,7 +47,7 @@ def init():
 
 	profile=driver.find_element_by_css_selector('._2dpe._1ayn').get_attribute('href').split('/')[3]
 	driver.get('https://www.facebook.com/messages/'+profile)
-	if not(driver.find_element_by_id('u_0_x').is_displayed()):
+	if not(driver.find_element_by_id('u_0_y').is_displayed()):
 		driver.find_element_by_css_selector('._1s0').click()
 
 	while True :

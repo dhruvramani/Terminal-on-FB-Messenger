@@ -1,9 +1,17 @@
-# Terminal on Facebook Messenger
+# Terminal on Facebook Messenger (TFM) ver. 1.01
 
 Allows user to take full control of the terminal of their computer through Facebook's messaging service.
 
 
 ![Photo](Screenshots/photo.PNG)
+
+##Updates
+Added support for sending files and ```cd```. Type following commands on Messenger :
+
+```
+cd __dirname
+send __filename
+```
 
 ##Dependencies 
 ####Selenium
@@ -24,8 +32,8 @@ Enter your facebook username and password and wait till it sets up. To make sure
 To send the commands, search for your own name on the messenger and send commands to it
 
 ##Future Improvements
-- Add support for ```cd```
-- Send files 
+- ~~Add support for ```cd```~~
+- ~~Send files~~
 - Switch to PhantomJS
 - Error Logs
 - Running in backgroud thread
