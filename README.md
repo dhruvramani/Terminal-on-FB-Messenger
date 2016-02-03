@@ -3,7 +3,7 @@
 Allows user to take full control of the terminal of their computer through Facebook's messaging service.
 
 
-![Photo](Screenshots/photo1.jpg)
+![Photo](Screenshots/Photo1.jpg)
 
 ##Updates
 Added support for sending files and ```cd```. Type following commands on Messenger :
