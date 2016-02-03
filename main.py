@@ -6,6 +6,7 @@ driver=webdriver.Firefox()
 def waitForNextMessage():
 	messageList=driver.find_elements_by_css_selector('.null')
 	command=''
+	print('Ready!')
 	while True:
 		driver.implicitly_wait(10)
 		element = driver.find_elements_by_css_selector('.null')
@@ -36,9 +37,9 @@ def runCommand(command):
 	driver.find_element_by_id('u_0_y').click()
 
 def init():
-	email=input("Email : ")
+	email=input('Email : ')
 	password=input('Password : ')
-	
+	print('Loading...\n')
 	driver.get('https://www.facebook.com/')
 	inputs=driver.find_elements_by_css_selector('.inputtext')
 	inputs[0].send_keys(email)
