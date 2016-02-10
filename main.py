@@ -11,7 +11,6 @@ except NameError:
 def waitForNextMessage():
 	messageList=driver.find_elements_by_css_selector('.null')
 	command=''
-	print('Ready!')
 	while True:
 		driver.implicitly_wait(10)
 		element = driver.find_elements_by_css_selector('.null')
@@ -55,7 +54,7 @@ def init():
 	driver.get('https://www.facebook.com/messages/'+profile)
 	if not(driver.find_element_by_id('u_0_y').is_displayed()):
 		driver.find_element_by_css_selector('._1s0').click()
-
+	print('Ready!')
 	while True :
 		waitForNextMessage()
 
