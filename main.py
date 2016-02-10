@@ -3,6 +3,11 @@ from selenium import webdriver
 
 driver=webdriver.Firefox()
 
+try:
+        input = raw_input
+except NameError:
+	pass
+
 def waitForNextMessage():
 	messageList=driver.find_elements_by_css_selector('.null')
 	command=''
