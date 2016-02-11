@@ -1,5 +1,6 @@
 import os
 from selenium import webdriver
+from getpass import getpass
 
 driver=webdriver.Firefox()
 
@@ -42,7 +43,7 @@ def runCommand(command):
 
 def init():
 	email=input('Email : ')
-	password=input('Password : ')
+	password=getpass('Password : ')
 	print('Loading...\n')
 	driver.get('https://www.facebook.com/')
 	inputs=driver.find_elements_by_css_selector('.inputtext')
