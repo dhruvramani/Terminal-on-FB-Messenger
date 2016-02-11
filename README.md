@@ -6,15 +6,10 @@ Allows user to take full control of the terminal of their computer through Faceb
 ![Photo](Screenshots/Photo1.jpg)
 
 ##Updates
-<<<<<<< HEAD
+
 -Added ```memory``` command, to get current memory stats of the machine
 -Added ```quit``` and ```help``` commands
--Addded condition for proper log-in
--Using getpass() to hide password (PR by @idoqo)
--Support for Python 2.7 (PR by @amitt001)
--Added support for sending files and ```cd```. Type following commands on Messenger :
-=======
- - Added ```quit``` and ```help``` commands
+
  ```
  help : Displays the commands which can be used
       
