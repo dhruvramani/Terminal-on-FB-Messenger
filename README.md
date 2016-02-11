@@ -7,6 +7,11 @@ Allows user to take full control of the terminal of their computer through Faceb
 
 ##Updates
  - Added ```quit``` and ```help``` commands
+ ```
+      help : Displays the commands which can be used
+      
+      quit : quit session
+ ```
  - Addded condition for proper log-in
  - Using getpass() to hide password (PR by @idoqo)
  - Support for Python 2.7 (PR by @amitt001)
