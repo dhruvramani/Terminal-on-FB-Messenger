@@ -7,8 +7,8 @@ Allows user to take full control of the terminal of their computer through Faceb
 
 ##Updates
 
--Added ```memory``` command, to get current memory stats of the machine
--Added ```quit``` and ```help``` commands
+ - Added ```memory``` command, to get current memory stats of the machine
+ - Added ```quit``` and ```help``` commands
 
  ```
  help : Displays the commands which can be used
