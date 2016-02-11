@@ -4,6 +4,7 @@ from selenium import webdriver
 from getpass import getpass
 
 driver=webdriver.Firefox()
+driver.set_window_size(800,800)  #Required, removes the "element not found" bug
 
 try:
         input = raw_input
@@ -44,8 +45,10 @@ def runCommand(command):
 		output='Session Ended'
 		driver.quit()
 		sys.exit(0)
+	if cmd[0] == 'memory':
+		output=os.popen('top -l 1 -s 0 | grep PhysMem').read()
 	if cmd[0] == 'help':
-		output='help          : Displays this\nquit          : Ends current session\nsend __filePath : Sends the file at the path specfied\n\nRun any other command as you would on your CLI'
+		output='help                   : Displays this\nquit                    : Ends current session\nsend __filePath : Sends the file at the path specfied\nmemory             : Gives current memory stats of system\n\nRun any other command as you would on your CLI'
 	driver.find_element_by_css_selector('.uiTextareaNoResize.uiTextareaAutogrow._1rv').send_keys('@CLI :\n\n'+output)
 	driver.find_element_by_id('u_0_y').click()
 

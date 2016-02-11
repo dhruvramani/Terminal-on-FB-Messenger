@@ -1,11 +1,12 @@
 # Terminal on Facebook Messenger 
-###(TFM) ver. 1.02
+###TFM ver. 1.3
 Allows user to take full control of the terminal of their computer through Facebook's messaging service.
 
 
 ![Photo](Screenshots/Photo1.jpg)
 
 ##Updates
+-Added ```memory``` command, to get current memory stats of the machine
 -Added ```quit``` and ```help``` commands
 -Addded condition for proper log-in
 -Using getpass() to hide password (PR by @idoqo)
