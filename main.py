@@ -58,12 +58,6 @@ def runCommand(command):
 			output=fpath
 		else:
 			output='File not found : '+fpath
-	if cmd[0] == 'show':
-		if os.path.isfile(fpath):
-			with open(fpath,'r') as f:
-				output=f.read()
-		else :
-			output='File not found : '+fpath
 	if cmd[0] == 'quit':
 		output='Session Ended'
 		driver.quit()
