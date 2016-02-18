@@ -92,8 +92,6 @@ def runCommand(command):
 	if cmd[0] == 'help':
 		output='help                   : Displays this\nquit                    : Ends current session\nsend __filePath : Sends the file at the path specfied\nmemory             : Gives current memory stats of system\n\nRun any other command as you would on your CLI'
 	
-	if not output:
-		output='Command not found: '+command[0]
 	driver.find_element_by_css_selector('.uiTextareaNoResize.uiTextareaAutogrow._1rv').send_keys('@CLI\n\n'+output)
 	driver.find_element_by_id('u_0_z').click()
 
