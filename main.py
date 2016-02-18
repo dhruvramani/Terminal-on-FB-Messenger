@@ -96,6 +96,8 @@ def runCommand(command):
 		output='Command not found: '+command[0]
 	driver.find_element_by_css_selector('.uiTextareaNoResize.uiTextareaAutogrow._1rv').send_keys('@CLI\n\n'+output)
 	driver.find_element_by_id('u_0_z').click()
+	if(os.path.isfile(os.getcwd()+'/ss.png')):
+		os.remove(os.getcwd()+'/ss.png'))
 
 def init():
 	cont=False

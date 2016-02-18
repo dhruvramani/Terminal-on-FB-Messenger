@@ -38,6 +38,7 @@ pip install selenium
  - Any other command you might normally use on your CLI.
 
 ##Updates
+ - Disabled Chrome Notifications (PR by [@mmplisskin](https://github.com/mmplisskin))
  - Added show command
 
  ```
