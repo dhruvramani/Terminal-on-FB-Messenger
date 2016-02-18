@@ -14,6 +14,12 @@ try:
 except NameError:
 	pass
 
+def clear():
+	if os.name == 'nt':
+		os.system('cls')
+	else : 
+		os.system('clear')
+
 def waitForNextMessage():
 	driver.implicitly_wait(10)
 	messageList=driver.find_elements_by_css_selector('.null')
@@ -35,7 +41,8 @@ def runCommand(command):
 	cmd=command.split(' ')
 	if(len(cmd)==2):
 		fpath=os.getcwd()+'/'+cmd[1]
-		if cmd[1].split('s')[0] == 'http':
+		urlIden=cmd[1].split(':')[0]
+		if  urlIden == 'http' or urlIden == 'https':
 			url=cmd[1]
 	if cmd[0] == 'cd':
 		if os.path.isdir(fpath):
@@ -89,6 +96,7 @@ def runCommand(command):
 
 def init():
 	cont=False
+	clear()
 	while(cont == False):
 		driver.get('https://www.facebook.com/')
 		email=input('Email : ')
@@ -99,10 +107,7 @@ def init():
 		driver.implicitly_wait(10)
 		driver.find_element_by_id('u_0_x').click()
 		if str(driver.current_url).split('=')[0] == 'https://www.facebook.com/login.php?login_attempt':
-			if os.name == 'nt':
-				cl=os.system('cls')
-			else : 
-				cl=os.system('clear')
+			clear()
 			print('Invalid Email/Password')
 		else: 
 			cont=True
