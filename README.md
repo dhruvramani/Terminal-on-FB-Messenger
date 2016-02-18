@@ -1,8 +1,14 @@
 # Terminal on Facebook Messenger 
-###TFM ver. 1.3
+###TFM ver. 1.4
 Allows user to take full control of the terminal of their computer through Facebook's messaging service.
 
-![Photo](Screenshots/Photo1.jpg)
+![Photo](Screenshots/IMG_2201.PNG)
+
+##Disclamer
+
+```
+I shall not collect users' content or information, or otherwise access Facebook, using automated means (such as harvesting bots, robots, spiders, or scrapers) without our prior permission.
+```
 
 ##Run
 To use the script to full extent, make sure that you keep it at the home directory.
@@ -16,21 +22,30 @@ Enter your facebook username and password and wait till it sets up. To make sure
 To send the commands, search for your own name on the messenger and send commands to it
 
 ##Dependencies 
-####Selenium
+###Selenium
 ```
 pip install selenium
 ```
-####[Firefox](https://www.mozilla.org/en-GB/firefox/new/)
+###Chrome
+[How to run here](https://stackoverflow.com/questions/8255929/running-webdriver-chrome-with-selenium)
 
 ##Commands
+ - ```show```    - Previews any file or a URL
  - ```memory``` - Gives The current Memory Stats of the machine
- - ```send```   - Send file at a path relative to current directory
- - ```help```   - Lists the commands that can be used
- - ```quit```   - Quit current session
+ - ```send```    - Send file at a path relative to current directory
+ - ```help```    - Lists the commands that can be used
+ - ```quit```    - Quit current session
  - Any other command you might normally use on your CLI.
 
 ##Updates
+ - Added show command
 
+ ```
+ show URL (https://www.foo.bar) /Relative FilePath 'Foo/Bar/main.py'
+ ```
+
+ - Shifted to Chrome
+ - Faster Log-In 
  - Added ```memory``` command, to get current memory stats of the machine
  - Added ```quit``` and ```help``` commands
 
@@ -55,3 +70,6 @@ send __filePath
 - Error Logs
 - Running in backgroud thread
 - Fix all the bugs
+
+##License
+[Apache-2.0](https://opensource.org/licenses/Apache-2.0)
