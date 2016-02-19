@@ -41,6 +41,7 @@ def runCommand(command):
 	driver.implicitly_wait(10)
 	output=os.popen(command).read()
 	url=''
+	fpath=''
 	cmd=command.split(' ')
 	if(len(cmd)==2):
 		fpath=os.getcwd()+'/'+cmd[1]
@@ -84,8 +85,10 @@ def runCommand(command):
 	if cmd[0] == 'memory':
 		output=os.popen('top -l 1 -s 0 | grep PhysMem').read()
 	if cmd[0] == 'help':
-		output='help                   : Displays this\nquit                    : Ends current session\nsend __filePath : Sends the file at the path specfied\nmemory             : Gives current memory stats of system\n\nRun any other command as you would on your CLI'
+		output='help : Displays this\n\nquit : Ends current session\n\nsend __filePath : Sends the file at the path specfied\n\nmemory : Gives current memory stats of system\n\nshow __filePath/URL : Previews file/url \n\nRun any other command as you would on your CLI'
 	
+	if not output:
+		output='(Y)'
 	driver.find_element_by_css_selector('.uiTextareaNoResize.uiTextareaAutogrow._1rv').send_keys('@CLI\n\n'+output)
 	driver.find_element_by_id('u_0_z').click()
 
