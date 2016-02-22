@@ -17,7 +17,17 @@ Run it like this :
 python ~/main.py
 ```
 ![Screenshot](Screenshots/Screenshot1.png)
-Enter your facebook username and password and wait till it sets up. To make sure that it has setup, your url should be ```'https://facebook.com/messages/*your own username*```.
+
+Enter your facebook username and password when prompted. 
+
+> Alternatively, you can automate authentication. Create ```settings.txt``` file in repo's folder, and write email and password there in following format:
+> ```
+> [main]
+> email = addresswithoutquotes@gmail.com
+> password = passwordwithoutquotes
+> ```
+
+Wait till it sets up. To make sure that it has setup, your url should be ```'https://facebook.com/messages/*your own username*```.
 
 To send the commands, search for your own name on the messenger and send commands to it
 
