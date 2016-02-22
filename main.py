@@ -90,7 +90,7 @@ def runCommand(command):
 	if not output:
 		output='(Y)'
 	driver.find_element_by_css_selector('.uiTextareaNoResize.uiTextareaAutogrow._1rv').send_keys('@CLI\n\n'+output)
-	driver.find_element_by_id('u_0_z').click()
+	driver.find_element_by_id('u_0_y').click()
 
 def init():
 	cont=False
@@ -99,11 +99,11 @@ def init():
 		driver.get('https://www.facebook.com/')
 		email=input('Email : ')
 		password=getpass('Password : ')
-		inputs=driver.find_elements_by_css_selector('.inputtext')
-		inputs[0].send_keys(email)
-		inputs[1].send_keys(password)
+		inputs=driver.find_elements_by_tag_name('input')
+		inputs[1].send_keys(email)
+		inputs[2].send_keys(password)
 		driver.implicitly_wait(10)
-		driver.find_element_by_id('u_0_x').click()
+		inputs[3].click()
 		if str(driver.current_url).split('=')[0] == 'https://www.facebook.com/login.php?login_attempt':
 			clear()
 			print('Invalid Email/Password')
@@ -111,9 +111,9 @@ def init():
 			cont=True
 
 	print('Loading...\n')
-	profile=driver.find_element_by_css_selector('._2dpe._1ayn').get_attribute('href').split('/')[3]
+	profile=driver.find_element_by_css_selector('._2s25').get_attribute('href').split('/')[3]
 	driver.get('https://www.facebook.com/messages/'+profile)
-	if not(driver.find_element_by_id('u_0_z').is_displayed()):
+	if not(driver.find_element_by_id('u_0_y').is_displayed()):
 		driver.find_element_by_css_selector('._1s0').click()
 	print('Ready!')
 	while True:
