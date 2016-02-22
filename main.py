@@ -107,7 +107,8 @@ def init():
 
 	credentials = SafeConfigParser();
 	credentials.read('settings.txt')
-	if credentials.has_option('main','email') and credentials.has_option('main','password'):
+	if (credentials.has_option('main','email') 
+		  and credentials.has_option('main','password')):
 		credentials_from_file = True
 
 	while(cont == False):
