@@ -19,6 +19,9 @@ chrome_options.add_experimental_option("prefs",prefs)
 driver = webdriver.Chrome(chrome_options=chrome_options)
 driver.set_window_size(1080,800)  #Required, removes the "element not found" bug
 
+replyButton = None
+customCommands={}
+
 try:
 	input = raw_input
 except NameError:
@@ -49,25 +52,40 @@ def runCommand(command):
 	output=os.popen(command).read()
 	url=''
 	fpath=''
-	cmd=command.split(' ')
+	cmd=command.lower().split(' ')
 	if(len(cmd)==2):
 		fpath=os.getcwd()+'/'+cmd[1]
 		urlIden=cmd[1].split(':')[0]
 		if  urlIden == 'http' or urlIden == 'https':
 			url=cmd[1]
+	
+	if(len(cmd)>=4):
+		if cmd[0] == 'set' and cmd[2] == 'as':
+			global customCommands
+			if not cmd[1] in customCommands:
+				with open('commands.txt','a') as foo:
+					foo.write(cmd[1]+' '+cmd[3]+'\n')
+				customCommands[cmd[1]]=' '.join(cmd[3:])
+				output='Command set : '+cmd[1]+' = '+' '.join(cmd[3:])
+			else: 
+				output='ERROR\nCommand already defined : '+cmd[1]
+
+	if cmd[0] in customCommands:
+		output=os.popen(customCommands[cmd[0]]).read() 
+
 	if cmd[0] == 'cd':
 		if os.path.isdir(fpath):
 			os.chdir(fpath)
 			output=os.getcwd()
-		else : output='No such file or directory: '+fpath
+		else : output='ERROR\nNo such file or directory: '+fpath
 	if cmd[0] == 'send':
 		if os.path.isfile(fpath):
 			driver.find_element_by_id('js_1').send_keys(fpath)
 			output=fpath
 		else:
-			output='File not found : '+fpath
+			output='ERROR\nFile not found : '+fpath
 	if cmd[0] == 'quit':
-		output='Session Ended'
+		print('Session Ended')
 		driver.quit()
 		sys.exit(0)
 
@@ -90,14 +108,18 @@ def runCommand(command):
 			driver.find_element_by_id('js_1').send_keys(os.getcwd()+'/ss.png')
 
 	if cmd[0] == 'memory':
-		output=os.popen('top -l 1 -s 0 | grep PhysMem').read()
+		if os.name == 'nt':
+			output = 'ERROR\nCurrently, the memory command is only supported for UNIX-based machines'
+		else:
+			output=os.popen('top -l 1 -s 0 | grep PhysMem').read()
 	if cmd[0] == 'help':
-		output='help : Displays this\n\nquit : Ends current session\n\nsend __filePath : Sends the file at the path specfied\n\nmemory : Gives current memory stats of system\n\nshow __filePath/URL : Previews file/url \n\nRun any other command as you would on your CLI'
+		output='help : Displays this\n\nquit : Ends current session\n\nsend __filePath : Sends the file at the path specfied\n\nmemory : Gives current memory stats of system\n\nshow __filePath/URL : Previews file/url \n\nset *NewCommandName* as *actualCommand* : Define alias name for command\n\nRun any other command as you would on your CLI'
 	
 	if not output:
 		output='(Y)'
+		
 	driver.find_element_by_css_selector('.uiTextareaNoResize.uiTextareaAutogrow._1rv').send_keys('@CLI\n\n'+output)
-	driver.find_element_by_id('u_0_y').click()
+	replyButton.click()
 
 def init():
 	cont=False
@@ -126,6 +148,7 @@ def init():
 		inputs[2].send_keys(password)
 		driver.implicitly_wait(10)
 		inputs[3].click()
+
 		if str(driver.current_url).split('=')[0] == 'https://www.facebook.com/login.php?login_attempt':
 			clear()
 			print('Invalid Email/Password')
@@ -136,11 +159,25 @@ def init():
 			cont=True
 
 	print('Loading...\n')
-	profile=driver.find_element_by_css_selector('._2s25').get_attribute('href').split('/')[3]
+	profile=[x for x in driver.find_elements_by_tag_name('a') if x.get_attribute('title') == 'Profile'][0].get_attribute('href').split('/')[3]
 	driver.get('https://www.facebook.com/messages/'+profile)
-	if not(driver.find_element_by_id('u_0_y').is_displayed()):
+	
+	global replyButton
+	replyButton=[x for x in driver.find_elements_by_tag_name('input') if x.get_attribute('value') == 'Reply'][0]
+
+	if not(replyButton.is_displayed()):
 		driver.find_element_by_css_selector('._1s0').click()
+
+	if os.path.isfile(os.getcwd()+'/commands.txt'):
+		with open('commands.txt','r') as foo:
+			for a in foo.read().split('\n'):
+				ls=a.split(' ')
+				if len(ls) == 2:
+					global customCommands
+					customCommands[ls[0]]=ls[1]
+
 	print('Ready!')
+
 	while True:
 		waitForNextMessage()
 

@@ -1,14 +1,13 @@
 # Terminal on Facebook Messenger 
-###TFM ver. 1.4
+###TFM ver. 1.5
 Allows user to take full control of the terminal of their computer through Facebook's messaging service.
 
 ![Photo](Screenshots/IMG_2201.PNG)
 
 ##Disclamer
 
-```
-I shall not collect users' content or information, or otherwise access Facebook, using automated means (such as harvesting bots, robots, spiders, or scrapers) without our prior permission.
-```
+>I shall not collect users' content or information, or otherwise access Facebook, using automated means (such as harvesting bots, robots, spiders, or scrapers) without our prior permission.
+
 
 ##Run
 To use the script to full extent, make sure that you keep it at the home directory.
@@ -37,18 +36,25 @@ To send the commands, search for your own name on the messenger and send command
 pip install selenium
 ```
 ###Chrome
-[How to run here](https://stackoverflow.com/questions/8255929/running-webdriver-chrome-with-selenium)
+[Link for proper installation.](https://stackoverflow.com/questions/8255929/running-webdriver-chrome-with-selenium)
 
 ##Commands
- - ```show```    - Previews any file or a URL
- - ```memory``` - Gives The current Memory Stats of the machine
- - ```send```    - Send file at a path relative to current directory
- - ```help```    - Lists the commands that can be used
- - ```quit```    - Quit current session
- - Any other command you might normally use on your CLI.
+ Commands                                  | Function           
+------------------------------------------|--------------------
+ **set** 'newCommandName' **as** 'actualCommand'| Define alias name for command|
+ **show** relativeFilePath / URL         | Previews any file or a URL |
+ **memory**      | Gives The current Memory Stats of the machine      |
+ **send** relativeFilePath | Sends file     |
+ **help** | Lists the commands that can be used |
+ **quit** | Quit current session |
+
+**Any other command you might normally use on your CLI.**
 
 ##Updates
- - Disabled Chrome Notifications (PR by [@mmplisskin](https://github.com/mmplisskin))
+ - Added ```set ... as``` command
+ - Reduced dependencies on machine generated id's and classes
+ -  Auto-authentification from settings file (Pushed by [@tedmx](https://github.com/tedmx))
+ - Disabled Chrome Notifications (Pushed by [@mmplisskin](https://github.com/mmplisskin))
  - Added show command
 
  ```
@@ -65,8 +71,8 @@ pip install selenium
  quit : quit session
  ```
  - Addded condition for proper log-in
- - Using getpass() to hide password (PR by [@idoqo](https://github.com/idoqo))
- - Support for Python 2.7 (PR by [@amitt001](https://github.com/amitt001))
+ - Using getpass() to hide password (Pushed by [@idoqo](https://github.com/idoqo))
+ - Support for Python 2.7 (Pushed by [@amitt001](https://github.com/amitt001))
  - Added support for sending files and ```cd```. Type following commands on Messenger :
 
 ```
