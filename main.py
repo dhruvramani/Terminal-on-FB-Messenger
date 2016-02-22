@@ -53,8 +53,8 @@ def runCommand(command):
 	url=''
 	fpath=''
 	cmd=command.lower().split(' ')
-	if(len(cmd)==2):
-		fpath=os.getcwd()+'/'+cmd[1]
+	if(len(cmd)>=2):
+		fpath=os.getcwd()+'/'+' '.join(cmd[1:])
 		urlIden=cmd[1].split(':')[0]
 		if  urlIden == 'http' or urlIden == 'https':
 			url=cmd[1]
