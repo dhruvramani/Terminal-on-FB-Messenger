@@ -64,7 +64,7 @@ def runCommand(command):
 			global customCommands
 			if not cmd[1] in customCommands:
 				with open('commands.txt','a') as foo:
-					foo.write(cmd[1]+' '+cmd[3]+'\n')
+					foo.write(cmd[1]+' '+(' '.join(cmd[3:]))+'\n')
 				customCommands[cmd[1]]=' '.join(cmd[3:])
 				output='Command set : '+cmd[1]+' = '+' '.join(cmd[3:])
 			else: 
