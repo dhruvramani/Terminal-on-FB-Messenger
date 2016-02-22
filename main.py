@@ -6,6 +6,13 @@ import sys
 from selenium import webdriver
 from getpass import getpass
 
+# Importing configparser both for Python 2 and 3
+try:
+	from configparser import SafeConfigParser
+except ImportError:
+	from ConfigParser import SafeConfigParser
+
+
 chrome_options = webdriver.ChromeOptions()
 prefs = {"profile.default_content_setting_values.notifications" : 2}
 chrome_options.add_experimental_option("prefs",prefs)
@@ -13,7 +20,7 @@ driver = webdriver.Chrome(chrome_options=chrome_options)
 driver.set_window_size(1080,800)  #Required, removes the "element not found" bug
 
 try:
-        input = raw_input
+	input = raw_input
 except NameError:
 	pass
 
@@ -95,10 +102,25 @@ def runCommand(command):
 def init():
 	cont=False
 	clear()
+
+	credentials_from_file = False
+
+	credentials = SafeConfigParser();
+	credentials.read('settings.txt')
+	if (credentials.has_option('main','email') 
+		  and credentials.has_option('main','password')):
+		credentials_from_file = True
+
 	while(cont == False):
 		driver.get('https://www.facebook.com/')
-		email=input('Email : ')
-		password=getpass('Password : ')
+	
+		if credentials_from_file:
+			email = credentials.get('main', 'email')
+			password = credentials.get('main', 'password')
+		else:
+			email=input('Email : ')
+			password=getpass('Password : ')
+
 		inputs=driver.find_elements_by_tag_name('input')
 		inputs[1].send_keys(email)
 		inputs[2].send_keys(password)
@@ -107,6 +129,9 @@ def init():
 		if str(driver.current_url).split('=')[0] == 'https://www.facebook.com/login.php?login_attempt':
 			clear()
 			print('Invalid Email/Password')
+			if credentials_from_file:
+				print('Switching to manual input')
+				credentials_from_file = False
 		else: 
 			cont=True
 
