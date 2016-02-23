@@ -116,7 +116,7 @@ def runCommand(command):
 		else:
 			output=os.popen('top -l 1 -s 0 | grep PhysMem').read()
 	if cmd[0] == 'help':
-		output='help : Displays this\n\nquit : Ends current session\n\nsend __filePath : Sends the file at the path specfied\n\nmemory : Gives current memory stats of system\n\nshow __filePath/URL : Previews file/url \n\nset *NewCommandName* as *actualCommand* : Define alias name for command\n\nRun any other command as you would on your CLI'
+		output='help : Displays this\n\nquit : Ends current session\n\nsend __filePath : Sends the file at the path specfied\n\nmemory : Gives current memory stats of system\n\nshow __filePath/URL : Previews file/url \n\nset *NewCommandName* as *actualCommand* : Define alias name for command\n\n------USER DEFINED ALIAS------\n\n'+'\n'.join(customCommands.keys())+'\n\n------------\n\nRun any other command as you would on your CLI'
 	
 	if not output:
 		output='(Y)'

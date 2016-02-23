@@ -1,0 +1,4 @@
+battery_per pmset -g batt | egrep "([0-9]+\%).*" -o --colour=auto | cut -f1 -d';'
+battery_time pmset -g batt | egrep "([0-9]+\%).*" -o --colour=auto | cut -f3 -d';'
+gibberish curl -s https://baconipsum.com/api/?type=all-meat
+get_ip ipconfig getifaddr en0

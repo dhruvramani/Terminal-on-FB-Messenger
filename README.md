@@ -1,5 +1,5 @@
 # Terminal on Facebook Messenger 
-###TFM ver. 1.6
+###TFM ver. 1.7
 Allows user to take full control of the terminal of their computer through Facebook's messaging service.
 
 ![Photo](Screenshots/IMG_2201.PNG)
@@ -28,7 +28,13 @@ Enter your facebook username and password when prompted.
 
 Wait till it sets up. To make sure that it has setup, your url should be ```'https://facebook.com/messages/*your own username*```.
 
-To send the commands, search for your own name on the messenger and send commands to it
+To send the commands, search for your own name on the messenger and send commands to it.
+
+>While using the ```set ... as ... ``` command, you can create a file named ``>`commands.txt`` and write the Alias name in the following format (seperated by single space):
+>```
+>Alias_command_without_quotes  actual_command_without_quotes
+>```
+>The file has been included in the repo, which has some useful commands for Mac.
 
 ##Dependencies 
 ###Selenium
@@ -51,31 +57,31 @@ pip install selenium
 **Any other command you might normally use on your CLI.**
 
 ##Updates
- - Fixed misc. bugs 
- - CPU and Chill
- - Added ```set ... as``` command
- - Reduced dependencies on machine generated id's and classes
- -  Auto-authentification from settings file (Pushed by [@tedmx](https://github.com/tedmx))
- - Disabled Chrome Notifications (Pushed by [@mmplisskin](https://github.com/mmplisskin))
- - Added show command
+ - Fixed misc. bugs. 
+ - CPU and Chill.
+ - Added ```set ... as``` command.
+ - Reduced dependencies on machine generated id's and classes.
+ -  Auto-authentification from settings file (Pushed by [@tedmx](https://github.com/tedmx)).
+ - Disabled Chrome Notifications (Pushed by [@mmplisskin](https://github.com/mmplisskin)).
+ - Added show command.
 
  ```
  show URL (https://www.foo.bar) /Relative FilePath 'Foo/Bar/main.py'
  ```
 
- - Shifted to Chrome
- - Faster Log-In 
- - Added ```memory``` command, to get current memory stats of the machine
- - Added ```quit``` and ```help``` commands
+ - Shifted to Chrome.
+ - Faster Log-In .
+ - Added ```memory``` command, to get current memory stats of the machine.
+ - Added ```quit``` and ```help``` commands.
 
  ```
  help : Displays the commands which can be used
  quit : quit session
  ```
- - Addded condition for proper log-in
- - Using getpass() to hide password (Pushed by [@idoqo](https://github.com/idoqo))
- - Support for Python 2.7 (Pushed by [@amitt001](https://github.com/amitt001))
- - Added support for sending files and ```cd```. Type following commands on Messenger :
+ - Addded condition for proper log-in.
+ - Using getpass() to hide password (Pushed by [@idoqo](https://github.com/idoqo)).
+ - Support for Python 2.7 (Pushed by [@amitt001](https://github.com/amitt001)).
+ - Added support for sending files and ```cd```. Type following commands on.Messenger :
 
 ```
 cd __dirPath
@@ -83,12 +89,12 @@ send __filePath
 ```
 
 ##Future Improvements
-- ~~Add support for ```cd```~~
-- ~~Send files~~
-- Switch to PhantomJS
-- Error Logs
-- Running in backgroud thread
-- Fix all the bugs
+- ~~Add support for ```cd```~~.
+- ~~Send files~~.
+- Switch to PhantomJS.
+- ~~Error Logs~~.
+- Running in backgroud thread.
+- Fix all the bugs.
 
 ##License
 [Apache-2.0](https://opensource.org/licenses/Apache-2.0)
