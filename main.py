@@ -3,6 +3,7 @@
 
 import os
 import sys
+import time
 from selenium import webdriver
 from getpass import getpass
 
@@ -46,6 +47,7 @@ def waitForNextMessage():
 				print(command)
 				runCommand(command)
 			break
+		time.sleep(0.01)
 
 def runCommand(command):
 	driver.implicitly_wait(10)
@@ -63,10 +65,20 @@ def runCommand(command):
 		if cmd[0] == 'set' and cmd[2] == 'as':
 			global customCommands
 			if not cmd[1] in customCommands:
+				final=' '.join(cmd[3:])
 				with open('commands.txt','a') as foo:
+<<<<<<< HEAD
+<<<<<<< HEAD
+					foo.write(cmd[1]+' '+final+'\n')
+				customCommands[cmd[1]]=final
+				output='Command set : '+cmd[1]+' = '+final
+=======
+=======
+>>>>>>> origin/master
 					foo.write(cmd[1]+' '+(' '.join(cmd[3:]))+'\n')
 				customCommands[cmd[1]]=' '.join(cmd[3:])
 				output='Command set : '+cmd[1]+' = '+' '.join(cmd[3:])
+>>>>>>> origin/master
 			else: 
 				output='ERROR\nCommand already defined : '+cmd[1]
 
@@ -119,6 +131,7 @@ def runCommand(command):
 		output='(Y)'
 		
 	driver.find_element_by_css_selector('.uiTextareaNoResize.uiTextareaAutogrow._1rv').send_keys('@CLI\n\n'+output)
+	driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
 	replyButton.click()
 
 def init():
@@ -172,9 +185,9 @@ def init():
 		with open('commands.txt','r') as foo:
 			for a in foo.read().split('\n'):
 				ls=a.split(' ')
-				if len(ls) == 2:
+				if len(ls) >= 2:
 					global customCommands
-					customCommands[ls[0]]=ls[1]
+					customCommands[ls[0]]=' '.join(ls[1:])
 
 	print('Ready!')
 
@@ -183,3 +196,4 @@ if __name__ == '__main__':
 	init()
 	while True:
 		waitForNextMessage()
+		time.sleep(0.01)
