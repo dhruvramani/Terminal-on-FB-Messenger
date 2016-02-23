@@ -67,18 +67,9 @@ def runCommand(command):
 			if not cmd[1] in customCommands:
 				final=' '.join(cmd[3:])
 				with open('commands.txt','a') as foo:
-<<<<<<< HEAD
-<<<<<<< HEAD
 					foo.write(cmd[1]+' '+final+'\n')
 				customCommands[cmd[1]]=final
 				output='Command set : '+cmd[1]+' = '+final
-=======
-=======
->>>>>>> origin/master
-					foo.write(cmd[1]+' '+(' '.join(cmd[3:]))+'\n')
-				customCommands[cmd[1]]=' '.join(cmd[3:])
-				output='Command set : '+cmd[1]+' = '+' '.join(cmd[3:])
->>>>>>> origin/master
 			else: 
 				output='ERROR\nCommand already defined : '+cmd[1]
 
