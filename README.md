@@ -49,7 +49,7 @@ pip install selenium
 ##Commands
  Command                                  | Function           
 ------------------------------------------|--------------------
- ```senddir *relativeFilePath*``` | Sends directory after coverting to .zip|
+ ```senddir *relativeDirectoryPath*``` | Sends directory after coverting to .zip|
  ```set *newCommandName* as *actualCommand*```| Define alias name for command|
  ```show *relativeFilePath / URL*```        | Previews any file or a URL |
  ```memory```      | Gives The current Memory Stats of the machine      |
