@@ -1,5 +1,7 @@
 # Terminal on Facebook Messenger 
-###TFM ver. 1.7
+
+
+###TFM ver. 1.8
 Allows user to take full control of the terminal of their computer through Facebook's messaging service.
 
 ![Photo](Screenshots/IMG_2201.PNG)
@@ -47,16 +49,18 @@ pip install selenium
 ##Commands
  Command                                  | Function           
 ------------------------------------------|--------------------
+ ```senddir *relativeFilePath*``` | Sends directory after coverting to .zip|
  ```set *newCommandName* as *actualCommand*```| Define alias name for command|
- ```show relativeFilePath / URL```        | Previews any file or a URL |
+ ```show *relativeFilePath / URL*```        | Previews any file or a URL |
  ```memory```      | Gives The current Memory Stats of the machine      |
- ```send relativeFilePath``` | Sends file     |
+ ```send *relativeFilePath*``` | Sends file     |
  ```help``` | Lists the commands that can be used |
  ```quit``` | Quit current session |
 
 **Any other command you might normally use on your CLI.**
 
 ##Updates
+ - Added ```senddir``` command.
  - Fixed misc. bugs. 
  - CPU and Chill.
  - Added ```set ... as``` command.

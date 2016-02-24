@@ -4,10 +4,10 @@
 import os
 import sys
 import time
+import zipfile
 from selenium import webdriver
 from getpass import getpass
 
-# Importing configparser both for Python 2 and 3
 try:
 	from configparser import SafeConfigParser
 except ImportError:
@@ -33,6 +33,11 @@ def clear():
 		os.system('cls')
 	else : 
 		os.system('clear')
+
+def zipdir(path, ziph):
+	for root, dirs, files in os.walk(path):
+		for file in files:
+			ziph.write(os.path.join(root, file))
 
 def waitForNextMessage():
 	driver.implicitly_wait(10)
@@ -76,11 +81,22 @@ def runCommand(command):
 	if cmd[0] in customCommands:
 		output=os.popen(customCommands[cmd[0]]).read() 
 
+	if cmd[0] == 'senddir':
+		if os.path.isdir(fpath):
+			name=''.join(cmd[1:])+'.zip'
+			zipf = zipfile.ZipFile(name, 'w')
+			zipdir(fpath, zipf)
+			zipf.close()
+			driver.find_element_by_id('js_1').send_keys(os.getcwd()+'/'+name)
+			output=fpath
+		else : output='ERROR\nNo such directory: '+fpath
+
 	if cmd[0] == 'cd':
 		if os.path.isdir(fpath):
 			os.chdir(fpath)
 			output=os.getcwd()
-		else : output='ERROR\nNo such file or directory: '+fpath
+		else : output='ERROR\nNo such directory: '+fpath
+
 	if cmd[0] == 'send':
 		if os.path.isfile(fpath):
 			driver.find_element_by_id('js_1').send_keys(fpath)
@@ -116,7 +132,7 @@ def runCommand(command):
 		else:
 			output=os.popen('top -l 1 -s 0 | grep PhysMem').read()
 	if cmd[0] == 'help':
-		output='help : Displays this\n\nquit : Ends current session\n\nsend __filePath : Sends the file at the path specfied\n\nmemory : Gives current memory stats of system\n\nshow __filePath/URL : Previews file/url \n\nset *NewCommandName* as *actualCommand* : Define alias name for command\n\n------USER DEFINED ALIAS------\n\n'+'\n'.join(customCommands.keys())+'\n\n------------\n\nRun any other command as you would on your CLI'
+		output='help : Displays this\n\nquit : Ends current session\n\nsend __filePath : Sends the file at the path specfied\n\nsenddir __dirPath : Sends directory after coverting to .zip\n\nmemory : Gives current memory stats of system\n\nshow __filePath/URL : Previews file/url \n\nset *NewCommandName* as *actualCommand* : Define alias name for command\n\n------USER DEFINED ALIAS------\n\n'+'\n'.join(customCommands.keys())+'\n\n------------\n\nRun any other command as you would on your CLI'
 	
 	if not output:
 		output='(Y)'
