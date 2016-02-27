@@ -17,11 +17,11 @@ except ImportError:
 chrome_options = webdriver.ChromeOptions()
 prefs = {"profile.default_content_setting_values.notifications" : 2}
 chrome_options.add_experimental_option("prefs",prefs)
-driver = webdriver.Chrome(chrome_options=chrome_options)
+driver = webdriver.Chrome(chrome_options = chrome_options)
 driver.set_window_size(1080,800)  #Required, removes the "element not found" bug
 
 replyButton = None
-customCommands={}
+customCommands = {}
 
 try:
 	input = raw_input
@@ -41,13 +41,13 @@ def zipdir(path, ziph):
 
 def waitForNextMessage():
 	driver.implicitly_wait(10)
-	messageList=driver.find_elements_by_css_selector('.null')
-	command=''
+	messageList = driver.find_elements_by_css_selector('.null')
+	command = ''
 	while True:
 		driver.implicitly_wait(10)
 		element = driver.find_elements_by_css_selector('.null')
 		if not(element == messageList):
-			command=element[-1].find_elements_by_css_selector("*")[0].text
+			command = element[-1].find_elements_by_css_selector("*")[0].text
 			if not(command.split('\n')[0] == '@CLI'):
 				print(command)
 				runCommand(command)
@@ -56,46 +56,46 @@ def waitForNextMessage():
 
 def runCommand(command):
 	driver.implicitly_wait(10)
-	output=os.popen(command).read()
-	url=''
-	fpath=''
-	cmd=command.lower().split(' ')
+	output = os.popen(command).read()
+	url = ''
+	fpath = ''
+	cmd = command.lower().split(' ')
 	if(len(cmd)>=2):
-		fpath=os.getcwd()+'/'+' '.join(cmd[1:])
-		urlIden=cmd[1].split(':')[0]
+		fpath = os.getcwd()+'/'+' '.join(cmd[1:])
+		urlIden = cmd[1].split(':')[0]
 		if  urlIden == 'http' or urlIden == 'https':
-			url=cmd[1]
+			url = cmd[1]
 	
 	if(len(cmd)>=4):
 		if cmd[0] == 'set' and cmd[2] == 'as':
 			global customCommands
 			if not cmd[1] in customCommands:
-				final=' '.join(cmd[3:])
+				final = ' '.join(cmd[3:])
 				with open('commands.txt','a') as foo:
-					foo.write(cmd[1]+' '+final+'\n')
+					foo.write(cmd[1] + ' ' + final + '\n')
 				customCommands[cmd[1]]=final
-				output='Command set : '+cmd[1]+' = '+final
+				output = 'Command set : ' + cmd[1] + ' = '+final
 			else: 
-				output='ERROR\nCommand already defined : '+cmd[1]
+				output = 'ERROR\nCommand already defined : ' + cmd[1]
 
 	if cmd[0] in customCommands:
-		output=os.popen(customCommands[cmd[0]]).read() 
+		output = os.popen(customCommands[cmd[0]]).read() 
 
 	if cmd[0] == 'senddir':
 		if os.path.isdir(fpath):
-			name=''.join(cmd[1:])+'.zip'
+			name = ''.join(cmd[1:])+'.zip'
 			zipf = zipfile.ZipFile(name, 'w')
 			zipdir(fpath, zipf)
 			zipf.close()
 			driver.find_element_by_id('js_1').send_keys(os.getcwd()+'/'+name)
-			output=fpath
-		else : output='ERROR\nNo such directory: '+fpath
+			output = fpath
+		else : output = 'ERROR\nNo such directory: '+fpath
 
 	if cmd[0] == 'cd':
 		if os.path.isdir(fpath):
 			os.chdir(fpath)
-			output=os.getcwd()
-		else : output='ERROR\nNo such directory: '+fpath
+			output = os.getcwd()
+		else : output = 'ERROR\nNo such directory: '+fpath
 
 	if cmd[0] == 'send':
 		if os.path.isfile(fpath):
@@ -109,21 +109,21 @@ def runCommand(command):
 		sys.exit(0)
 
 	if cmd[0] == 'show':
-		dr=webdriver.Chrome()
-		foo=True
+		dr = webdriver.Chrome()
+		foo = True
 		if url:
 			dr.get(url)
 		elif os.path.isfile(fpath):
 			dr.get('file:///'+fpath)
 		else :
-			output='Invalid Path/URL : ' 
-			foo=False
+			output = 'Invalid Path/URL : ' 
+			foo = False
 
 		if foo:
 			dr.save_screenshot('ss.png')
 			dr.quit()
-			if url: output=url 
-			else: output=fpath
+			if url: output = url 
+			else: output = fpath
 			driver.find_element_by_id('js_1').send_keys(os.getcwd()+'/ss.png')
 
 	if cmd[0] == 'memory':
@@ -132,10 +132,10 @@ def runCommand(command):
 		else:
 			output=os.popen('top -l 1 -s 0 | grep PhysMem').read()
 	if cmd[0] == 'help':
-		output='help : Displays this\n\nquit : Ends current session\n\nsend __filePath : Sends the file at the path specfied\n\nsenddir __dirPath : Sends directory after coverting to .zip\n\nmemory : Gives current memory stats of system\n\nshow __filePath/URL : Previews file/url \n\nset *NewCommandName* as *actualCommand* : Define alias name for command\n\n------USER DEFINED ALIAS------\n\n'+'\n'.join(customCommands.keys())+'\n\n------------\n\nRun any other command as you would on your CLI'
+		output = 'help : Displays this\n\nquit : Ends current session\n\nsend __filePath : Sends the file at the path specfied\n\nsenddir __dirPath : Sends directory after coverting to .zip\n\nmemory : Gives current memory stats of system\n\nshow __filePath/URL : Previews file/url \n\nset *NewCommandName* as *actualCommand* : Define alias name for command\n\n------USER DEFINED ALIAS------\n\n'+'\n'.join(customCommands.keys())+'\n\n------------\n\nRun any other command as you would on your CLI'
 	
 	if not output:
-		output='(Y)'
+		output = '(Y)'
 		
 	driver.find_element_by_css_selector('.uiTextareaNoResize.uiTextareaAutogrow._1rv').send_keys('@CLI\n\n'+output)
 	driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
@@ -160,8 +160,8 @@ def init():
 			email = credentials.get('main', 'email')
 			password = credentials.get('main', 'password')
 		else:
-			email=input('Email : ')
-			password=getpass('Password : ')
+			email = input('Email : ')
+			password = getpass('Password : ')
 
 		inputs=driver.find_elements_by_tag_name('input')
 		inputs[1].send_keys(email)
@@ -176,27 +176,27 @@ def init():
 				print('Switching to manual input')
 				credentials_from_file = False
 		else: 
-			cont=True
+			cont = True
 
 	print('Loading...\n')
-	profile=[x for x in driver.find_elements_by_tag_name('a') if x.get_attribute('title') == 'Profile'][0].get_attribute('href').split('/')[3]
+	profile = [x for x in driver.find_elements_by_tag_name('a') if x.get_attribute('title') == 'Profile'][0].get_attribute('href').split('/')[3]
 	driver.get('https://www.facebook.com/messages/'+profile)
 	
 	global replyButton
-	replyButton=[x for x in driver.find_elements_by_tag_name('input') if x.get_attribute('value') == 'Reply'][0]
+	replyButton = [x for x in driver.find_elements_by_tag_name('input') if x.get_attribute('value') == 'Reply'][0]
 
 	if not(replyButton.is_displayed()):
 		driver.find_element_by_css_selector('._1s0').click()
 
-	if os.path.isfile(os.getcwd()+'/commands.txt'):
+	if os.path.isfile(os.getcwd() + '/commands.txt'):
 		with open('commands.txt','r') as foo:
 			for a in foo.read().split('\n'):
 				ls=a.split(' ')
 				if len(ls) >= 2:
 					global customCommands
-					customCommands[ls[0]]=' '.join(ls[1:])
+					customCommands[ls[0]] = ' '.join(ls[1:])
 
-	print('Ready!')
+	print('Ready!\n\n--------------COMMANDS--------------')
 
 
 if __name__ == '__main__':
