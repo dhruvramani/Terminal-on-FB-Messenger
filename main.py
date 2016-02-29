@@ -46,7 +46,7 @@ def waitForNextMessage():
 	while True:
 		driver.implicitly_wait(10)
 		element = driver.find_elements_by_css_selector('.null')
-		if not(element == messageList):
+		if element != messageList:
 			command = element[-1].find_elements_by_css_selector("*")[0].text
 			if not(command.split('\n')[0] == '@CLI'):
 				print(command)
@@ -57,26 +57,25 @@ def waitForNextMessage():
 def runCommand(command):
 	driver.implicitly_wait(10)
 	output = os.popen(command).read()
-	url = ''
-	fpath = ''
+	url = fpath = ''
 	cmd = command.lower().split(' ')
-	if(len(cmd)>=2):
+	if (len(cmd) >= 2):
 		fpath = os.getcwd()+'/'+' '.join(cmd[1:])
 		urlIden = cmd[1].split(':')[0]
 		if  urlIden == 'http' or urlIden == 'https':
 			url = cmd[1]
 	
-	if(len(cmd)>=4):
+	if (len(cmd) >= 4):
 		if cmd[0] == 'set' and cmd[2] == 'as':
 			global customCommands
-			if not cmd[1] in customCommands:
+			if cmd[1] not in customCommands:
 				final = ' '.join(cmd[3:])
 				with open('commands.txt','a') as foo:
 					foo.write(cmd[1] + ' ' + final + '\n')
-				customCommands[cmd[1]]=final
-				output = 'Command set : ' + cmd[1] + ' = '+final
+				customCommands[cmd[1]] = final
+				output = 'Command set : {} = {}'.format(cmd[1], final)
 			else: 
-				output = 'ERROR\nCommand already defined : ' + cmd[1]
+				output = 'ERROR\nCommand already defined : {}'.format(cmd[1])
 
 	if cmd[0] in customCommands:
 		output = os.popen(customCommands[cmd[0]]).read() 
@@ -84,25 +83,26 @@ def runCommand(command):
 	if cmd[0] == 'senddir':
 		if os.path.isdir(fpath):
 			name = ''.join(cmd[1:])+'.zip'
-			zipf = zipfile.ZipFile(name, 'w')
-			zipdir(fpath, zipf)
-			zipf.close()
-			driver.find_element_by_id('js_1').send_keys(os.getcwd()+'/'+name)
+			with open zipfile.ZipFile(name, 'w') as zipf:
+				zipdir(fpath, zipf)
+			driver.find_element_by_id('js_1').send_keys(os.getcwd() + '/' + name)
 			output = fpath
-		else : output = 'ERROR\nNo such directory: '+fpath
+		else: 
+			output = 'ERROR\nNo such directory: {}'.format(fpath)
 
 	if cmd[0] == 'cd':
 		if os.path.isdir(fpath):
 			os.chdir(fpath)
 			output = os.getcwd()
-		else : output = 'ERROR\nNo such directory: '+fpath
+		else : 
+			output = 'ERROR\nNo such directory: {}'.format(fpath)
 
 	if cmd[0] == 'send':
 		if os.path.isfile(fpath):
 			driver.find_element_by_id('js_1').send_keys(fpath)
-			output=fpath
+			output = fpath
 		else:
-			output='ERROR\nFile not found : '+fpath
+			output = 'ERROR\nFile not found : {}'.format(fpath)
 	if cmd[0] == 'quit':
 		print('Session Ended')
 		driver.quit()
@@ -122,15 +122,17 @@ def runCommand(command):
 		if foo:
 			dr.save_screenshot('ss.png')
 			dr.quit()
-			if url: output = url 
-			else: output = fpath
-			driver.find_element_by_id('js_1').send_keys(os.getcwd()+'/ss.png')
+			if url:
+				output = url 
+			else: 
+				utput = fpath
+			driver.find_element_by_id('js_1').send_keys(os.getcwd() +  '/ss.png')
 
 	if cmd[0] == 'memory':
 		if os.name == 'nt':
 			output = 'ERROR\nCurrently, the memory command is only supported for UNIX-based machines'
 		else:
-			output=os.popen('top -l 1 -s 0 | grep PhysMem').read()
+			output = os.popen('top -l 1 -s 0 | grep PhysMem').read()
 	if cmd[0] == 'help':
 		output = 'help : Displays this\n\nquit : Ends current session\n\nsend __filePath : Sends the file at the path specfied\n\nsenddir __dirPath : Sends directory after coverting to .zip\n\nmemory : Gives current memory stats of system\n\nshow __filePath/URL : Previews file/url \n\nset *NewCommandName* as *actualCommand* : Define alias name for command\n\n------USER DEFINED ALIAS------\n\n'+'\n'.join(customCommands.keys())+'\n\n------------\n\nRun any other command as you would on your CLI'
 	
@@ -142,7 +144,7 @@ def runCommand(command):
 	replyButton.click()
 
 def init():
-	cont=False
+	cont = False
 	clear()
 
 	credentials_from_file = False
@@ -153,7 +155,7 @@ def init():
 		  and credentials.has_option('main','password')):
 		credentials_from_file = True
 
-	while(cont == False):
+	while not cont:
 		driver.get('https://www.facebook.com/')
 	
 		if credentials_from_file:
@@ -191,7 +193,7 @@ def init():
 	if os.path.isfile(os.getcwd() + '/commands.txt'):
 		with open('commands.txt','r') as foo:
 			for a in foo.read().split('\n'):
-				ls=a.split(' ')
+				ls = a.split(' ')
 				if len(ls) >= 2:
 					global customCommands
 					customCommands[ls[0]] = ' '.join(ls[1:])
