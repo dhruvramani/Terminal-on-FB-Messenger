@@ -52,7 +52,7 @@ def waitForNextMessage():
 				print(command)
 				runCommand(command)
 			break
-		time.sleep(0.01)
+		time.sleep(0.1)
 
 def runCommand(command):
 	driver.implicitly_wait(10)
@@ -205,4 +205,4 @@ if __name__ == '__main__':
 	init()
 	while True:
 		waitForNextMessage()
-		time.sleep(0.01)
+		time.sleep(0.1)
