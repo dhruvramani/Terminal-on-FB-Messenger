@@ -81,13 +81,14 @@ def runCommand(command):
 		output = os.popen(customCommands[cmd[0]]).read() 
 
 	if cmd[0] == 'senddir':
+		name = ''.join(cmd[1:])+'.zip'
 		if os.path.isdir(fpath):
-			name = ''.join(cmd[1:])+'.zip'
-			with open zipfile.ZipFile(name, 'w') as zipf:
-				zipdir(fpath, zipf)
-			driver.find_element_by_id('js_1').send_keys(os.getcwd() + '/' + name)
+			zipf = zipfile.ZipFile(name, 'w')
+			zipdir(fpath, zipf)
+			zipf.close()
+			driver.find_element_by_id('js_1').send_keys(os.getcwd()+'/'+name)
 			output = fpath
-		else: 
+		else:
 			output = 'ERROR\nNo such directory: {}'.format(fpath)
 
 	if cmd[0] == 'cd':
