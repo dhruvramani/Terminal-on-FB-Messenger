@@ -5,6 +5,7 @@ import os
 import sys
 import time
 import zipfile
+import re
 from selenium import webdriver
 from getpass import getpass
 
@@ -182,7 +183,18 @@ def init():
 			cont = True
 
 	print('Loading...\n')
-	profile = [x for x in driver.find_elements_by_tag_name('a') if x.get_attribute('title') == 'Profile'][0].get_attribute('href').split('/')[3]
+	profile_url = [x for x in driver.find_elements_by_tag_name('a') if x.get_attribute('title') == 'Profile'][0].get_attribute('href')
+	re_search = re.search(r'(\?id=\d+)$', profile_url)
+	
+	profile = ''
+	if re_search:
+		# Profiles with no username
+		profile = re_search.group(0)
+		profile = profile.replace('?id=', '')
+	else:
+		# Profiles with username
+		profile = profile_url[profile_url.rfind('/')+1:]
+		
 	driver.get('https://www.facebook.com/messages/'+profile)
 	
 	global replyButton
