@@ -14,7 +14,6 @@ try:
 except ImportError:
 	from ConfigParser import SafeConfigParser
 
-
 chrome_options = webdriver.ChromeOptions()
 prefs = {"profile.default_content_setting_values.notifications" : 2}
 chrome_options.add_experimental_option("prefs",prefs)
@@ -50,16 +49,19 @@ def waitForNextMessage():
 		if element != messageList:
 			command = element[-1].find_elements_by_css_selector("*")[0].text
 			if not(command.split('\n')[0] == '@CLI'):
-				print(command)
+				print('\033[94m {} \033[0m'.format(command))
 				runCommand(command)
 			break
 		time.sleep(0.1)
 
 def runCommand(command):
 	driver.implicitly_wait(10)
+	
 	output = os.popen(command).read()
 	url = fpath = ''
 	cmd = command.lower().split(' ')
+	fileButton = driver.find_elements_by_xpath('//input[@type="file"]')[0]
+
 	if (len(cmd) >= 2):
 		fpath = os.getcwd()+'/'+' '.join(cmd[1:])
 		urlIden = cmd[1].split(':')[0]
@@ -87,7 +89,7 @@ def runCommand(command):
 			zipf = zipfile.ZipFile(name, 'w')
 			zipdir(fpath, zipf)
 			zipf.close()
-			driver.find_element_by_id('js_1').send_keys(os.getcwd()+'/'+name)
+			fileButton.send_keys(os.getcwd()+'/'+name)
 			output = fpath
 		else:
 			output = 'ERROR\nNo such directory: {}'.format(fpath)
@@ -101,12 +103,14 @@ def runCommand(command):
 
 	if cmd[0] == 'send':
 		if os.path.isfile(fpath):
-			driver.find_element_by_id('js_1').send_keys(fpath)
+			fileButton.send_keys(fpath)
 			output = fpath
 		else:
 			output = 'ERROR\nFile not found : {}'.format(fpath)
 	if cmd[0] == 'quit':
 		print('Session Ended')
+		if os.path.isfile('settings.txt'):
+			os.system('chmod -r settings.txt')
 		driver.quit()
 		sys.exit(0)
 
@@ -128,7 +132,7 @@ def runCommand(command):
 				output = url 
 			else: 
 				utput = fpath
-			driver.find_element_by_id('js_1').send_keys(os.getcwd() +  '/ss.png')
+			fileButton.send_keys(os.getcwd() +  '/ss.png')
 
 	if cmd[0] == 'memory':
 		if os.name == 'nt':
@@ -152,6 +156,10 @@ def init():
 	credentials_from_file = False
 
 	credentials = SafeConfigParser();
+
+	if os.path.isfile('settings.txt'):
+		os.system('chmod +r settings.txt')
+
 	credentials.read('settings.txt')
 	if (credentials.has_option('main','email') 
 		  and credentials.has_option('main','password')):
@@ -188,14 +196,12 @@ def init():
 	
 	profile = ''
 	if re_search:
-		# Profiles with no username
 		profile = re_search.group(0)
 		profile = profile.replace('?id=', '')
 	else:
-		# Profiles with username
 		profile = profile_url[profile_url.rfind('/')+1:]
 		
-	driver.get('https://www.facebook.com/messages/'+profile)
+	driver.get('https://www.facebook.com/messages/' + profile)
 	
 	global replyButton
 	replyButton = [x for x in driver.find_elements_by_tag_name('input') if x.get_attribute('value') == 'Reply'][0]
@@ -211,7 +217,7 @@ def init():
 					global customCommands
 					customCommands[ls[0]] = ' '.join(ls[1:])
 
-	print('Ready!\n\n--------------COMMANDS--------------')
+	print('\033[92mReady!\033[0m\n\n--------------COMMANDS--------------')
 
 
 if __name__ == '__main__':
