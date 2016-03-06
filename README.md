@@ -60,6 +60,7 @@ pip install selenium
 **Any other command you might normally use on your CLI.**
 
 ##Updates
+ - File permssion changes for settings.txt on log-in and quitting
  - Added ```senddir``` command.
  - Fixed misc. bugs. 
  - CPU and Chill.
