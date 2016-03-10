@@ -1,7 +1,7 @@
 # Terminal on Facebook Messenger 
 
 
-###TFM ver. 1.8
+###TFM ver. 1.9
 Allows user to take full control of the terminal of their computer through Facebook's messaging service.
 
 ![Photo](Screenshots/IMG_2201.PNG)
@@ -32,7 +32,7 @@ Wait till it sets up. To make sure that it has setup, your url should be ```'htt
 
 To send the commands, search for your own name on the messenger and send commands to it.
 
->While using the ```set ... as ... ``` command, you can create a file named ``>`commands.txt`` and write the Alias name in the following format (seperated by single space):
+>While using the ```set ... as ... ``` command, you can create a file named ``commands.txt`` and write the Alias name in the following format (seperated by single space):
 >```
 >Alias_command_without_quotes  actual_command_without_quotes
 >```
@@ -49,17 +49,20 @@ pip install selenium
 ##Commands
  Command                                  | Function           
 ------------------------------------------|--------------------
- ```senddir *relativeDirectoryPath*``` | Sends directory after coverting to .zip|
- ```set *newCommandName* as *actualCommand*```| Define alias name for command|
- ```show *relativeFilePath / URL*```        | Previews any file or a URL |
+ ```save file *file/file_name.format* | Saves the file sent along with the command at the path|
+ ```save img *path/image_name.png*``` | Saves the image sent along with the command at the path|
+ ```senddir *relative_directory_path*``` | Sends directory after coverting to .zip|
+ ```set *new_command_name* as *actual_command*```| Define alias name for command|
+ ```show *relative_file_path / URL*```        | Previews any file or a URL |
  ```memory```      | Gives The current Memory Stats of the machine      |
- ```send *relativeFilePath*``` | Sends file     |
+ ```send *relative_file_path*``` | Sends file     |
  ```help``` | Lists the commands that can be used |
  ```quit``` | Quit current session |
 
 **Any other command you might normally use on your CLI.**
 
 ##Updates
+ - Added ``save img`` and ```save file``` command.
  - File permssion changes for settings.txt on log-in and quitting
  - Added ```senddir``` command.
  - Fixed misc. bugs. 

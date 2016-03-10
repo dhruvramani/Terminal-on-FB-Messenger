@@ -6,6 +6,7 @@ import sys
 import time
 import zipfile
 import re
+from urllib.request import urlretrieve
 from selenium import webdriver
 from getpass import getpass
 
@@ -20,7 +21,7 @@ chrome_options.add_experimental_option("prefs",prefs)
 driver = webdriver.Chrome(chrome_options = chrome_options)
 driver.set_window_size(1080,800)  #Required, removes the "element not found" bug
 
-replyButton = None
+replyButton = imgList = fileList =  None
 customCommands = {}
 
 try:
@@ -63,7 +64,7 @@ def runCommand(command):
 	fileButton = driver.find_elements_by_xpath('//input[@type="file"]')[0]
 
 	if (len(cmd) >= 2):
-		fpath = os.getcwd()+'/'+' '.join(cmd[1:])
+		fpath = os.getcwd() + '/' + ' '.join(cmd[1:])
 		urlIden = cmd[1].split(':')[0]
 		if  urlIden == 'http' or urlIden == 'https':
 			url = cmd[1]
@@ -79,6 +80,26 @@ def runCommand(command):
 				output = 'Command set : {} = {}'.format(cmd[1], final)
 			else: 
 				output = 'ERROR\nCommand already defined : {}'.format(cmd[1])
+
+	if cmd[0] == 'save':
+		path = os.getcwd() + '/' + ''.join(cmd[2:])
+		global imgList
+		global fileList
+		if cmd[1] == 'img':
+			newImgList = driver.find_elements_by_css_selector('._4yp9')
+			if imgList != newImgList:
+				urlretrieve(newImgList[-1].get_attribute('style').split("\"")[1],path)
+				output = 'Image saved as ' + path
+				imgList = newImgList
+			else:  output = 'ERROR\nImage not found'
+
+		if cmd[1] == 'file':
+			newFileList = [x for x in driver.find_elements_by_tag_name('a') if x.get_attribute('rel') == 'nofollow']
+			if newFileList != fileList:
+				urlretrieve(newFileList[-1].get_attribute('href'),path)
+				output = 'File saved as ' + path
+				fileList = newFileList
+			else : output = 'ERROR\nFile not found'
 
 	if cmd[0] in customCommands:
 		output = os.popen(customCommands[cmd[0]]).read() 
@@ -109,8 +130,6 @@ def runCommand(command):
 			output = 'ERROR\nFile not found : {}'.format(fpath)
 	if cmd[0] == 'quit':
 		print('Session Ended')
-		if os.path.isfile('settings.txt'):
-			os.system('chmod -r settings.txt')
 		driver.quit()
 		sys.exit(0)
 
@@ -122,7 +141,7 @@ def runCommand(command):
 		elif os.path.isfile(fpath):
 			dr.get('file:///'+fpath)
 		else :
-			output = 'Invalid Path/URL : ' 
+			output = 'ERROR\nInvalid Path/URL : ' 
 			foo = False
 
 		if foo:
@@ -140,7 +159,7 @@ def runCommand(command):
 		else:
 			output = os.popen('top -l 1 -s 0 | grep PhysMem').read()
 	if cmd[0] == 'help':
-		output = 'help : Displays this\n\nquit : Ends current session\n\nsend __filePath : Sends the file at the path specfied\n\nsenddir __dirPath : Sends directory after coverting to .zip\n\nmemory : Gives current memory stats of system\n\nshow __filePath/URL : Previews file/url \n\nset *NewCommandName* as *actualCommand* : Define alias name for command\n\n------USER DEFINED ALIAS------\n\n'+'\n'.join(customCommands.keys())+'\n\n------------\n\nRun any other command as you would on your CLI'
+		output = 'help : Displays this\n\nquit : Ends current session\n\nsend __filePath : Sends the file at the path specfied\n\nsenddir __dirPath : Sends directory after coverting to .zip\n\nmemory : Gives current memory stats of system\n\nshow __filePath/URL : Previews file/url \n\nset *NewCommandName* as *actualCommand* : Define alias name for command\n\n------USER DEFINED ALIAS------\n\n' + '\n'.join(customCommands.keys()) + '\n\n------------\n\nRun any other command as you would on your CLI'
 	
 	if not output:
 		output = '(Y)'
@@ -157,7 +176,7 @@ def init():
 
 	credentials = SafeConfigParser();
 
-	if os.path.isfile('settings.txt'):
+	if os.path.isfile('settings.txt') and os.name != 'nt':
 		os.system('chmod +r settings.txt')
 
 	credentials.read('settings.txt')
@@ -191,10 +210,14 @@ def init():
 			cont = True
 
 	print('Loading...\n')
+
+	if os.path.isfile('settings.txt') and os.name != 'nt':
+			os.system('chmod -r settings.txt')
+	
 	profile_url = [x for x in driver.find_elements_by_tag_name('a') if x.get_attribute('title') == 'Profile'][0].get_attribute('href')
 	re_search = re.search(r'(\?id=\d+)$', profile_url)
-	
 	profile = ''
+	
 	if re_search:
 		profile = re_search.group(0)
 		profile = profile.replace('?id=', '')
@@ -217,11 +240,13 @@ def init():
 					global customCommands
 					customCommands[ls[0]] = ' '.join(ls[1:])
 
-	print('\033[92mReady!\033[0m\n\n--------------COMMANDS--------------')
+	print('\033[92mReady!\033[0m\n\n-------------- COMMANDS --------------')
 
 
 if __name__ == '__main__':
 	init()
+	imgList = driver.find_elements_by_css_selector('._4yp9')
+	fileList = [x for x in driver.find_elements_by_tag_name('a') if x.get_attribute('rel') == 'nofollow']
 	while True:
 		waitForNextMessage()
 		time.sleep(0.1)
