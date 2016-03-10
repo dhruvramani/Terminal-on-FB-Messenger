@@ -49,7 +49,7 @@ pip install selenium
 ##Commands
  Command                                  | Function           
 ------------------------------------------|--------------------
- ```save file *file/file_name.format* | Saves the file sent along with the command at the path|
+ ```save file *path/file_name.format*```| Saves the file sent along with the command at the path|
  ```save img *path/image_name.png*``` | Saves the image sent along with the command at the path|
  ```senddir *relative_directory_path*``` | Sends directory after coverting to .zip|
  ```set *new_command_name* as *actual_command*```| Define alias name for command|
