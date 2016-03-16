@@ -1,0 +1,96 @@
+html, body {
+    max-width: 100%;
+    overflow-x: hidden;
+    position:relative;
+    padding: 0px;
+    margin: 0px;
+}
+
+#main {
+	font-family: 'HelveticaNeue-Thin', 'Helvetica Neue Light', 'Helvetica Neue', 'Segoe UI', Helvetica, Arial, 'Lucida Grande', sans-serif;
+	font-weight : lighter;
+	font-size: 30px;
+	color:#191919;
+	margin-top:5px;
+}
+
+#logo {
+	vertical-align: middle;
+	height: 100%;
+	display:table;
+	margin:0 auto;
+	margin-top:30%;
+}
+#headline {
+	font-size: 20px;
+	margin:5%;
+	text-align: center;
+	font-family:  "Helvetica Neue", "Segoe UI", Helvetica, Arial, sans-serif;
+	font-weight: 200;
+	color:#474747;
+}
+
+.fill {
+	min-height: 100%;
+    height:100vh;
+    min-width: 100%;
+
+}
+.code { 
+	font-family: Consolas, Menlo, Monaco, 'Lucida Console', 'Liberation Mono', 'DejaVu Sans Mono', 'Bitstream Vera Sans Mono', 'Courier New', monospace, serif;;
+	font-weight: normal;
+
+}
+.heading {
+	font-family: 'HelveticaNeue-Thin', 'Helvetica Neue Light', 'Helvetica Neue', 'Segoe UI', Helvetica, Arial, 'Lucida Grande', sans-serif;
+	font-weight : 100;
+	text-align: center;
+	margin-top: 7%;
+	color: rgba(0,0,0,0.75);
+	margin-bottom: 7%;
+}
+.navbar {
+	width: 100%; 
+	background-color: RGBA(255, 255, 255, 0.95); 
+	z-index: 1000;
+}
+.desc{
+	text-align: center;
+	font-size: 17px;
+	margin-top: 5px;
+	color:rgba(0,0,0,0.55);
+	font-family: 'Helvetica Neue', 'Segoe UI', Helvetica, Arial, 'Lucida Grande', sans-serif;
+	font-weight: 400;
+	display:table;
+	margin:0 auto;
+}
+
+.fa {
+	font-size: 100px;
+	color:rgba(0,0,0,0.55);
+	margin-right: 5%;
+	display:table;
+	margin:0 auto;
+
+}
+
+#footer {
+	background-color: #323940;
+	color : #6B7075;
+	text-align: center;
+	padding: 10px;
+}
+
+#blueMe {
+	background-color: #339CFF;
+	color: #d4e4ff;
+	font-family: 'Helvetica Neue', 'Segoe UI', Helvetica, Arial, 'Lucida Grande', sans-serif;
+	font-weight: 200;
+	font-size: 18px;
+}
+a { color: white; }
+code {
+	color: #C3E889;
+	background-color: transparent;
+}
+.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}
