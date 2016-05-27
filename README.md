@@ -8,7 +8,7 @@ Allows user to take full control of the terminal of their computer through Faceb
 
 ##Disclamer
 
->I shall not collect users' content or information, or otherwise access Facebook, using automated means (such as harvesting bots, robots, spiders, or scrapers) without our prior permission.
+>I shall not collect user's content or information, or otherwise access Facebook, using automated means (such as harvesting bots, robots, spiders, or scrapers) without user's prior permission.
 
 
 ##Run
@@ -99,7 +99,7 @@ send __filePath
 ##Future Improvements
 - ~~Add support for ```cd```~~.
 - ~~Send files~~.
-- Switch to PhantomJS.
+- ~~Switch to PhantomJS.~~ (Chucking the idea, as error in the build of PhantomJS which doesn't allow file upload.)
 - ~~Error Logs~~.
 - Running in backgroud thread.
 - Fix all the bugs.
