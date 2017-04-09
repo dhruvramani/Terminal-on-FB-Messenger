@@ -1,17 +1,17 @@
 # Terminal on Facebook Messenger 
 
 
-###TFM ver. 1.9
+### TFM ver. 1.9
 Allows user to take full control of the terminal of their computer through Facebook's messaging service.
 
 ![Photo](Screenshots/IMG_2201.PNG)
 
-##Disclamer
+## Disclamer
 
->I shall not collect user's content or information, or otherwise access Facebook, using automated means (such as harvesting bots, robots, spiders, or scrapers) without user's prior permission.
+> I shall not collect user's content or information, or otherwise access Facebook, using automated means (such as harvesting bots, robots, spiders, or scrapers) without user's prior permission.
 
 
-##Run
+## Run
 To use the script to full extent, make sure that you keep it at the home directory.
 Run it like this :
 ```
@@ -26,7 +26,8 @@ Enter your facebook username and password when prompted.
 > [main]
 > email = addresswithoutquotes@gmail.com
 > password = passwordwithoutquotes
-> ```
+> 
+```
 
 Wait till it sets up. To make sure that it has setup, your url should be ```'https://facebook.com/messages/*your own username*```.
 
@@ -38,15 +39,15 @@ To send the commands, search for your own name on the messenger and send command
 >```
 >The file has been included in the repo, which has some useful commands for Mac.
 
-##Dependencies 
-###Selenium
+## Dependencies 
+### Selenium
 ```
 pip install selenium
 ```
-###Chrome
+### Chrome
 [Link for proper installation.](https://stackoverflow.com/questions/8255929/running-webdriver-chrome-with-selenium)
 
-##Commands
+## Commands
  Command                                  | Function           
 ------------------------------------------|--------------------
  ```save file *path/file_name.format*```| Saves the file sent along with the command at the path|
@@ -61,7 +62,7 @@ pip install selenium
 
 **Any other command you might normally use on your CLI.**
 
-##Updates
+## Updates
  - Added ``save img`` and ```save file``` command.
  - File permssion changes for settings.txt on log-in and quitting
  - Added ```senddir``` command.
@@ -96,7 +97,7 @@ cd __dirPath
 send __filePath
 ```
 
-##Future Improvements
+## Future Improvements
 - ~~Add support for ```cd```~~.
 - ~~Send files~~.
 - ~~Switch to PhantomJS.~~ (Chucking the idea, as error in the build of PhantomJS which doesn't allow file upload.)
@@ -104,5 +105,5 @@ send __filePath
 - Running in backgroud thread.
 - Fix all the bugs.
 
-##License
+## License
 [Apache-2.0](https://opensource.org/licenses/Apache-2.0)
