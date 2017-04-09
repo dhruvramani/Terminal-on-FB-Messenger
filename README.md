@@ -26,8 +26,7 @@ Enter your facebook username and password when prompted.
 > [main]
 > email = addresswithoutquotes@gmail.com
 > password = passwordwithoutquotes
-> 
-```
+> ```
 
 Wait till it sets up. To make sure that it has setup, your url should be ```'https://facebook.com/messages/*your own username*```.
 
